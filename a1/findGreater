@@ -1,0 +1,12 @@
+#!/bin/bash
+
+nol1=$(egrep $1 $2 | wc -l)
+nol2=$(egrep $1 $3 | wc -l)
+
+if [ $nol1 -gt $nol2 ]; then
+    echo $2
+elif [ $nol1 -lt $nol2 ]; then
+    echo $3
+else
+    echo $2 $3
+fi

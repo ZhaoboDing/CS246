@@ -1,0 +1,14 @@
+#!/bin/bash
+
+for word in $(cat "$1"); do
+  if [ -r $word.in ]; then
+    if [ ! -r $word.args ]; then
+      $2 < $word.in > $word.out
+    else
+      $2 $(cat $word.args) < $word.in > $word.out
+    fi
+  else
+    $2 $(cat $word.args) > $word.out
+  fi
+done
+
