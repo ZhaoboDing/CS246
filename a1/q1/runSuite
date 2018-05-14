@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ $# -ne 2 ]; then
+  exit 1
+fi
+
 for word in $(cat "$1"); do
   tmp=$(mktemp /tmp/temp.XXXXXXXXXX)
   if [ -r $word.in ]; then
