@@ -1,0 +1,21 @@
+r a 1 2 3 4 5 6 q
+p a
+r d 10 q
+p d
++ a 5 4 3 2 1 q
++ a 2 4 6 8 q
+p a
+r c -1 -2 0 2 7 -4 q
+p c
+r b 7 q
++ d 1 q
++ b 77 777 7777 77777 q
+p b
++ b 777777 q
+p b
+p d
+r b 234 567 890 q
+p b
+q
+r a 0 q
+p a
