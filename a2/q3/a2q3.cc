@@ -1,7 +1,19 @@
 # include <iostream>
 # include <string>
-# include <cstdlib>
 using namespace std;
+
+int atoi(char *str)
+{
+  int ans = 0;
+
+  for (char *p = str; *p; p++)
+    if (*p >= '0' && *p <= '9')
+      ans = ans * 10 + *p - '0';
+    else
+      return -1;
+
+  return ans;
+}
 
 int width = 25;
 
