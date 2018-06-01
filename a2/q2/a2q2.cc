@@ -47,6 +47,12 @@ int atoi(char *str)
 
 int main(int argc, char *args[])
 {
+  if (argc <= 2)
+  {
+    cout << "Usage: change [denominations] [amount]" << endl;
+    return 0;
+  }
+
   aimMoney = atoi(args[argc - 1]);
   moneyNum = argc - 2;
   for (int i = 1; i < argc - 1; i++)
