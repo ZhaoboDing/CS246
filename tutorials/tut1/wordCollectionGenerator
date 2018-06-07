@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Randomly sample the system dictionary 10 times with varying sample sizes to create
+# the word collection
+for i in {1..10};
+do
+  sort -R /usr/share/dict/words | head -$((RANDOM % 10000)) >> wordCollection;
+  # $((RANDOM % 10000)) access the global shell variable $RANDOM, which produces
+  # a different (pseudo-)random number every time it is accessed, and reduces it
+  # to the range of 0-9999 using the modulus operator
+done
