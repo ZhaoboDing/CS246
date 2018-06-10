@@ -1,11 +1,23 @@
 #ifndef _INTSET_H_
 #define _INTSET_H_
 #include <iostream>
+
+struct array {
+  int capacity;
+  int length;
+  int *arr;
+
+  array();
+  ~array();
+  void extend();
+  void add(int k);
+};
+
 struct intSet {
     // You may add fields and methods as you see fit
     // Do *not* change the provided methods.
   
-  
+  array set;
   intSet(); // constructor
   intSet(const intSet& is); // copy constructor
   ~intSet();  // destructor

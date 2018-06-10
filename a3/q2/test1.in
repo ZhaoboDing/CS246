@@ -1,0 +1,11 @@
+root: leaf1
+root: leaf2
+root: leaf3
+root: leaf4
+make root
+touch root
+make root
+touch leaf3
+touch leaf2
+make leaf3
+make root

@@ -1,0 +1,15 @@
+n a 2020 10 1
+ly 1100
+ly 2000
+ly 2016
+ly 2019
+vd 2018 4 31
+-d a
+-m a
++d a
+-m a
+-m a
+gd a
++d a
+p a
+q

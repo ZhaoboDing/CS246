@@ -3,45 +3,63 @@
 #include <sstream>
 using namespace std;
 
+// a class to store an unlimited 
+// number of intSets
 struct symbolTable {
   int size;
   int capacity;    
-  intSet **table;
+  intSet **table; // array of intSet pointers
   
   symbolTable() : size{0}, capacity{0}, table{nullptr} {}
+
   ~symbolTable() {
     if (size) {
       for (int i=0; i<size; ++i) delete table[i];
       delete[] table;    
     }
   }
+
+  //create a new intSet at the next possible position
   void add() {
-    if (size==capacity) realloc();
+    if (size==capacity) remem();
     table[size] = new intSet;
     ++size;
   }
+
+  //create a new intSet at the next possible position
+  //as a copy of the intset at position x
   void add(int x) {
-    if (size==capacity) realloc();
+    if (size==capacity) remem();
     table[size] = new intSet {*table[x]};
     ++size;
   }
+
+  //copy intset at pos j to pos i
   void copy(int i, int j) {
     *table[i] = *table[j];
   }
-  void realloc() {
+  
+  //increase the capacity of the table
+  void remem() {
     if (capacity==0) {
       table = new intSet*[5];
-      capacity = 5;
-		return;
+      capacity=5;
+      return;
     }
-    intSet** temp = new intSet*[capacity*2];
-    capacity *= 2;
-	 for (int i=0; i<size; ++i) temp[i]=table[i];
+    capacity=capacity*2;
+    intSet** temp = new intSet*[capacity];
+    for (int i=0; i<size; ++i) temp[i]=table[i];
     delete[] table;
     table=temp;
   }  
 };
 
+
+
+// continuously read int values from stdin and
+// add to the passed intSet. Function stops when input 
+// contains a non-int value. Discard the first non-int
+// character
 void readIn(intSet* is) {
   int x;  
   while(true) {
@@ -55,18 +73,23 @@ void readIn(intSet* is) {
   }
 }
 
+//returns by value a new intSet
+//primarily used to generate an rvalue
 intSet move() {
   intSet temp;
   readIn(&temp);
   return temp;
 }
 
-int main() { // Test harness for intSet functions.
+
+// Test harness for intSet functions.
+int main() { 
   bool done = false;
   symbolTable t;
   while (!done) {
     char c;
     int lhs, rhs;
+    cerr << "command?" << endl;
     // Valid commands: n,  p <ind>, & <ind1> <ind2>,
     //                 | <ind1> <ind2>, = <ind1> <ind2>,
     //                 s <ind1> <ind2>, c <ind1> <elem>,
@@ -98,7 +121,7 @@ int main() { // Test harness for intSet functions.
         cout << (*t.table[lhs] | *t.table[rhs]) <<endl;
         break;
       case '=':
-        // Print 1 if lhs == rhs, 2 otherwise.
+        // Print 1 if lhs == rhs, 0 otherwise.
         cin >> lhs >> rhs;
         cout << (*t.table[lhs] == *t.table[rhs]) << endl;
         break;
@@ -140,7 +163,7 @@ int main() { // Test harness for intSet functions.
       case 'm':
         // Read in integers until hitting non int and
         // create a new rvalue set from that, assigning 
-        // rhs to that rvalue set.
+        // lhs to that rvalue set.
         cin >> lhs;
         *t.table[lhs] = move();
         break;
