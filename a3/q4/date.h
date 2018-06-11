@@ -8,8 +8,7 @@ class Date {
 private:     // year should be between 1753-9999
     // You may add private fields and methods as you see fit
     // Do *not* change the provided methods.
-  
-  
+ int year, month, day;
 
 public:
   static bool isLeapYear(int y);
