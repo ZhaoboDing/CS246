@@ -3,10 +3,12 @@
 #include "date.h"
 
 int maxDayInMonth[13] = {0, 31, 28, 31, 30, 31, 30,
-                          31, 31, 30, 31, 30, 31};
+                          31, 31, 30, 31, 30, 31}; // The maximum days in a month in non-leap year
 std::string weekdays[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+// Name of each weekday
 std::string months[13] = {"#", "Jan", "Feb", "Mar", "Apr", "May", "Jun",
                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+// Name of each month
 
 bool Date::isLeapYear(int y) {
   if (y & 3)
@@ -35,11 +37,7 @@ int Date::getDayOfWeek(int y, int m, int d) {
     return w + 7;
 }
 
-Date::Date(int y, int m, int d) {
-  year = y;
-  month = m;
-  day = d;
-}
+Date::Date(int y, int m, int d): year{y}, month{m}, day{d} {}
 
 void Date::setDate(int y, int m, int d) {
   year = y;
@@ -77,6 +75,8 @@ void Date::print() const {
   std::cout << months[month] << " ";
   std::cout << year << std::endl;
 }
+
+// For every function below, we must specially consider Feb 29th for a leap year
 
 Date &Date::nextDay() {
   day++;

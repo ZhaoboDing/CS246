@@ -12,6 +12,7 @@ struct array {
   void extend();
   void add(int k);
 };
+// define a dynamic array and maintain it ascending to work as a set
 
 struct intSet {
     // You may add fields and methods as you see fit
