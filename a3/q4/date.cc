@@ -18,6 +18,7 @@ bool Date::isLeapYear(int y) {
 }
 
 bool Date::isValidDate(int y, int m, int d) {
+  if (y < 1753 || y > 9999) return false; // As is required in .h file
   if (isLeapYear(y) && m == 2 && d == 29)
     return true;
   else
@@ -40,9 +41,13 @@ int Date::getDayOfWeek(int y, int m, int d) {
 Date::Date(int y, int m, int d): year{y}, month{m}, day{d} {}
 
 void Date::setDate(int y, int m, int d) {
-  year = y;
-  month = m;
-  day = d;
+  if (isValidDate(y, m ,d)) {
+    year = y;
+    month = m;
+    day = d;
+  }
+  else
+    throw std::out_of_range("The date is invalid.");
 }
 
 int Date::getYear() const {
@@ -58,15 +63,24 @@ int Date::getDay() const {
 }
 
 void Date::setYear(int y) {
-  year = y;
+  if (isValidDate(y, month, day))
+    year = y;
+  else
+    throw std::out_of_range("The date is invalid.");
 }
 
 void Date::setMonth(int m) {
-  month = m;
+  if (isValidDate(year, m, day))
+    month = m;
+  else
+    throw std::out_of_range("The date is invalid.");
 }
 
 void Date::setDay(int d) {
-  day = d;
+  if (isValidDate(year, month, d))
+    day = d;
+  else
+    throw std::out_of_range("The date is invalid.");
 }
 
 void Date::print() const {
@@ -79,8 +93,10 @@ void Date::print() const {
 // For every function below, we must specially consider Feb 29th for a leap year
 
 Date &Date::nextDay() {
-  day++;
+  if (year == 9999 && month == 12 && day == 31)
+    throw std::out_of_range("The next day is invalid.");
 
+  day++;
   if (day > maxDayInMonth[month])
     if (!(isLeapYear(year) && month == 2 && day == 29)) {
       day = 1;
@@ -95,8 +111,10 @@ Date &Date::nextDay() {
 }
 
 Date &Date::previousDay() {
-  day--;
+  if (year == 1753 && month == 1 && day == 1)
+    throw std::out_of_range("The previous day is invalid.");
 
+  day--;
   if (day < 1)
     if (isLeapYear(year) && month == 3 && day == 0) {
       day = 29;
@@ -116,8 +134,10 @@ Date &Date::previousDay() {
 }
 
 Date &Date::nextMonth() {
-  month++;
+  if (year == 9999 && month == 12)
+    throw std::out_of_range("The next month is invalid.");
 
+  month++;
   if (month > 12) {
     month = 1;
     year++;
@@ -134,8 +154,10 @@ Date &Date::nextMonth() {
 }
 
 Date &Date::previousMonth() {
-  month--;
+  if (year == 1753 && month == 1)
+    throw std::out_of_range("The previous year is invalid.");
 
+  month--;
   if (month < 1) {
     month = 12;
     year--;
@@ -152,8 +174,10 @@ Date &Date::previousMonth() {
 }
 
 Date &Date::nextYear() {
-  year++;
+  if (year == 9999)
+    throw std::out_of_range("The next year is invalid.");
 
+  year++;
   if (month == 2 && day == 29)
     day = 28;
 
@@ -161,6 +185,8 @@ Date &Date::nextYear() {
 }
 
 Date &Date::previousYear() {
+  if (year == 1753)
+    throw std::out_of_range("The previous year is invalid.");
   year--;
 
   if (month == 2 && day == 29)
