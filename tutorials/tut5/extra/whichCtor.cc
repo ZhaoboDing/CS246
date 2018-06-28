@@ -48,10 +48,12 @@ struct S {
 
 	S& operator=(const S& rhs) {
 		cout << makeRed("Copy Assignment Operator") << endl;
+		return *this;
 	}
 
 	S& operator=(S&& rhs) {
 		cout << makeRed("Move Assignment Operator") << endl;
+		return *this;
 	}
 
 	~S() {

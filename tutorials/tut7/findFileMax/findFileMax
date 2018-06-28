@@ -1,0 +1,47 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "Needs at least one argument" >&2
+	exit 1
+fi
+
+
+findMax(){
+  # recall that cat with no arguments waits for input
+  # and then outputs the input given to it
+  for int in $(cat); do
+    # if the current max is an empty string OR
+	# if integer is greater than max
+	# have to check twice because the test command
+	# does not short circuit
+	if [ -z ${max} ]; then
+	  max=${int}
+    elif [ ${int} -gt ${max} ]; then
+      max=${int}
+    fi
+
+  done
+
+  echo ${max} # print the max
+}
+
+
+# loop through arguments
+for argument in ${@}; do
+  # stores the current maximum of a file
+  currMax=$(findMax < ${argument})
+  # if findMax outputed non-empty string AND
+  #     if file max is empty OR 
+  #     if curr max is greater than file max
+
+  if [  ! -z ${currMax} ]; then
+	if [ -z ${fileMax} ]; then
+	  fileMax=${currMax}
+	elif [ ${currMax} -gt ${fileMax} ]; then
+      fileMax=${currMax}
+    fi
+  fi
+
+done
+
+echo ${fileMax} # print out the maximum among all files
