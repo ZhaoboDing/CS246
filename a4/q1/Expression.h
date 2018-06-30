@@ -4,8 +4,8 @@
 
 class Expression {
 public:
-  virtual ~Expression() = 0;
-  virtual void prettyprint();
+  virtual ~Expression();
+  virtual std::string prettyprint();
   virtual void set(std::string, int);
   virtual void unset(std::string);
   virtual int  evaluate();
@@ -18,8 +18,9 @@ private:
 
 public:
   Unary(std::string opt, Expression *exp);
+  ~Unary();
 
-  void prettyprint();
+  std::string prettyprint();
   void set(std::string name, int val);
   void unset(std::string name);
   int  evaluate();
@@ -32,8 +33,9 @@ private:
 
 public:
   Binary(std::string opt, Expression *Lexp, Expression *Rexp);
+  ~Binary();
 
-  void prettyprint();
+  std::string prettyprint();
   void set(std::string name, int val);
   void unset(std::string name);
   int  evaluate();
@@ -47,9 +49,10 @@ private:
 
 public:
   Variable(std::string name);
-  Variable(std::string name, int val);
+  Variable(std::string name, int val, bool def);
+  ~Variable();
 
-  void prettyprint();
+  std::string prettyprint();
   void set(std::string name, int val);
   void unset(std::string name);
   int  evaluate();
@@ -61,8 +64,9 @@ private:
 
 public:
   Loneint(int val);
+  ~Loneint();
 
-  void prettyprint();
+  std::string prettyprint();
   void set(std::string name, int val);
   void unset(std::string name);
   int  evaluate();

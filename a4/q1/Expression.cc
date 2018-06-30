@@ -7,9 +7,12 @@ int absoluteValue(int x) {
 }
 // Calculate the absolute value
 
+
 Expression::~Expression() {}
 
-void Expression::prettyprint() {}
+std::string Expression::prettyprint() {
+  return "";
+}
 
 void Expression::set(std::string, int) {}
 
@@ -17,20 +20,20 @@ void Expression::unset(std::string) {}
 
 int Expression::evaluate() {
   return 0;
-}
+} // We return 0 for an empty expression
+
 
 Unary::Unary(std::string opt, Expression *exp): opt{opt}, exp{exp} {}
 
-void Unary::prettyprint() {
-  if (opt == "ABS") {
-    std::cout << "|";
-    exp->prettyprint();
-    std::cout << "|";
-  }
-  else if (opt == "NEG") {
-    std::cout << "-";
-    exp->prettyprint();
-  }
+Unary::~Unary() {
+  delete exp;
+}
+
+std::string Unary::prettyprint() {
+  if (opt == "ABS")
+    return "|" + exp->prettyprint() + "|";
+  else if (opt == "NEG")
+    return "-" + exp->prettyprint();
   else
     throw std::runtime_error("Unknown operateor: " + opt);
 }
@@ -52,15 +55,18 @@ int Unary::evaluate() {
     throw std::runtime_error("Unknown operateor: " + opt);
 }
 
+
 Binary::Binary(std::string opt, Expression *Lexp, Expression *Rexp):
   opt{opt}, Lexp{Lexp}, Rexp{Rexp} {}
 
-void Binary::prettyprint() {
-  std::cout << "(";
-  Lexp->prettyprint();
-  std::cout << " " << opt << " ";
-  Rexp->prettyprint();
-  std::cout << ")";
+Binary::~Binary() {
+  delete Lexp;
+  delete Rexp;
+}
+
+std::string Binary::prettyprint() {
+  return "(" + Lexp->prettyprint() + " " + opt +
+         " " + Rexp->prettyprint() + ")";
 }
 
 void Binary::set(std::string name, int val) {
@@ -92,15 +98,19 @@ int Binary::evaluate() {
     throw std::runtime_error("Unknown operator: " + opt);
 }
 
+
 Variable::Variable(std::string name): name{name}, val{0}, def{false} {}
 
-Variable::Variable(std::string name, int val): name{name}, val{val}, def{true} {}
+Variable::~Variable() {}
 
-void Variable::prettyprint() {
+Variable::Variable(std::string name, int val, bool def):
+  name{name}, val{val}, def{def} {}
+
+std::string Variable::prettyprint() {
   if (def)
-    std::cout << val;
+    return std::to_string(val);
   else
-    std::cout << name;
+    return name;
 }
 
 void Variable::set(std::string name, int val) {
@@ -125,12 +135,13 @@ int Variable::evaluate() {
   }
 }
 
-Loneint::Loneint(int val) {
-  this->val = val;
-}
 
-void Loneint::prettyprint() {
-  std::cout << val;
+Loneint::Loneint(int val): val{val} {}
+
+Loneint::~Loneint() {}
+
+std::string Loneint::prettyprint() {
+  return std::to_string(val);
 }
 
 void Loneint::set(std::string, int) {}

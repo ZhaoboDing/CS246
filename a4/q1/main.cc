@@ -10,7 +10,6 @@ using namespace std;
 // Read and construct expression object.  Returns a pointer to a heap-allocated
 // object (caller must delete it).
 
-vector <Expression *> mem;
 vector <Expression *> stk;
 
 istream &operator>>(istream &in, Expression *&e) {
@@ -25,7 +24,6 @@ istream &operator>>(istream &in, Expression *&e) {
 
       stktop++;
       stk.emplace_back(integer);
-      mem.emplace_back(integer);
     }
     else if (s == "NEG" || s == "ABS") {
       Unary *unary;
@@ -40,7 +38,6 @@ istream &operator>>(istream &in, Expression *&e) {
 
       stktop++;
       stk.emplace_back(unary);
-      mem.emplace_back(unary);
     }
     else if (s == "+" || s == "-" || s == "*" || s == "/") {
       Expression *r, *l;
@@ -64,7 +61,6 @@ istream &operator>>(istream &in, Expression *&e) {
       Binary *binary = new Binary{s, l, r};
       stktop++;
       stk.emplace_back(binary);
-      mem.emplace_back(binary);
     }
     else if (s == "done") {
       break;
@@ -74,7 +70,6 @@ istream &operator>>(istream &in, Expression *&e) {
 
       stktop++;
       stk.emplace_back(variable);
-      mem.emplace_back(variable);
     }
   }
 
@@ -87,8 +82,7 @@ int main () {
 
   Expression *e;
   cin >> e;
-  e->prettyprint();
-  cout << endl;
+  cout << e->prettyprint() << endl;
 
   // Command interpreter
   while (cin >> s) {
@@ -110,12 +104,10 @@ int main () {
     }
     else if (s == "print") {
       try {
-        e->prettyprint();
-        cout << endl;
+        cout << e->prettyprint() << endl;
       } catch (exception e) {}
     }
   }
 
-  for (auto itr = mem.begin(); itr != mem.end(); itr++)
-    delete *itr; // Free all the used heap memory
+  delete e;
 }
