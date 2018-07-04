@@ -1,0 +1,46 @@
+Scores: Team 0-2 0, Team 1-3 0
+Deck: AH QS KS KH JH 9D TH 9H JC JD AC 9C AD QH TS AS KD 9S TD QC QD TC KC JS
+Kitty: QD TC KC JS
+Player 0: hand [AS KD 9S TD QC] # tricks 0
+Player 1: hand [AH QS KS KH JH] # tricks 0
+Player 2: hand [9D TH 9H JC JD] # tricks 0
+Player 3: hand [AC 9C AD QH TS] # tricks 0
+Top card of the kitty is: QD
+Proposed trump suit is: D
+Dealer is player 0.
+Decision on trump starts with player 1.
+Player 1: hand [AH QS KS KH JH] # tricks 0
+Player 1 passes.
+Player 2: hand [9D TH 9H JC JD] # tricks 0
+Player 2 passes.
+Player 3: hand [AC 9C AD QH TS] # tricks 0
+Player 3 passes.
+Player 0: hand [AS KD 9S TD QC] # tricks 0
+> Player 0 passes.
+Kitty passed on, trump may not be D.
+Player 1, choose a suit.
+Player 1: hand [AH QS KS KH JH] # tricks 0
+Player 1 passes.
+Player 2, choose a suit.
+Player 2: hand [9D TH 9H JC JD] # tricks 0
+Player 2 passes.
+Player 3, choose a suit.
+Player 3: hand [AC 9C AD QH TS] # tricks 0
+Player 3 passes.
+Player 0, choose a suit.
+Player 0: hand [AS KD 9S TD QC] # tricks 0
+> Player 0 passes.
+No trump declared, hand is nullified. Deal switches to player 1.
+Scores: Team 0-2 0, Team 1-3 0
+Deck: QD TC QH JD 9S QS 9H AC KD KS TD TH TS 9D JH KH AS QC 9C JS AD JC AH KC
+Kitty: AD JC AH KC
+Top card of the kitty is: AD
+Proposed trump suit is: D
+Dealer is player 1.
+Decision on trump starts with player 2.
+Player 2: hand [QD TC QH JD 9S] # tricks 0
+Player 2 passes.
+Player 3: hand [QS 9H AC KD KS] # tricks 0
+Player 3 passes.
+Player 0: hand [TD TH TS 9D JH] # tricks 0
+> 
